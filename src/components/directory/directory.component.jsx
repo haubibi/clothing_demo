@@ -6,9 +6,9 @@ const Directory = ({categories}) => {
     return (
         <div className="directory-container">
           {
-            categories.map(({title, imageUrl}) => {
+            categories.map(({title, imageUrl, id}) => {
                return (
-                  <CategoryItem title={title} imageUrl = {imageUrl}/>
+                  <CategoryItem title={title} imageUrl = {imageUrl} key = {id}/>
               );
             })
           }
