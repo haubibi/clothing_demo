@@ -3,7 +3,8 @@ import {
     getAuth, 
     signInWithRedirect,
     signInWithPopup,
-    GoogleAuthProvider
+    GoogleAuthProvider,
+    createUserWithEmailAndPassword
 } from 'firebase/auth';
 
 import {
@@ -24,27 +25,34 @@ const firebaseConfig = {
     appId: "1:697062511544:web:9c056fa23ad92f4a49b54d" 
   };
 
+
+
   const firebaseApp = initializeApp(firebaseConfig);
+  //get the auth
+  export const auth = getAuth();
+  //get the firebase storage
+  export const db = getFirestore();
 
 
-  const provider = new GoogleAuthProvider();
-
-  provider.setCustomParameters({
+  //instance of google provider
+  const googleProvider = new GoogleAuthProvider();
+  //set the type of provider
+  googleProvider.setCustomParameters({
     prompt: 'select_account'
   });
 
 
-  export const auth = getAuth();
-  export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+  //sing in with google account and return the information obj
+
+  export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
+  export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
 
 
-  export const db = getFirestore();
 
-
-  export const createUserDocumentFromAuth = async (userAuth) => {
-    //get the user doc ref
+  export const createUserDocumentFromAuth = async (userAuth, additionalInfor) => {
+    //set the user doc ref
     const userDocRef = doc(db, 'users', userAuth.uid);
-    //get the snapshoot
+    //find the snapshoot
     const userSnapshoot = await getDoc(userDocRef);
     //create new data in database if not exists
     if(!userSnapshoot.exists()){
@@ -55,7 +63,8 @@ const firebaseConfig = {
         await setDoc(userDocRef, {
           displayName,
           email,
-          createAt
+          createAt,
+          ...additionalInfor
         });
       } catch(error) {
           console.log("error creating the user", error.message);
@@ -76,7 +85,10 @@ const firebaseConfig = {
   }
 
 
-
+  export const createAuthUserWithEmailAndPassword = async (email, password) =>{
+    if(!email || !password) return;
+    return await createUserWithEmailAndPassword(auth, email, password);
+  }
 
 //   rules_version = '2';
 // service cloud.firestore {
