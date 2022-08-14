@@ -5,7 +5,7 @@ import { CartContext } from "../../contexts/cart.context";
 import { useContext } from "react";
 
 
-const ShopCard = ({product})=>{
+const ProductCard = ({product})=>{
     const {imageUrl, name,price } = product;
     const { addCartItem} = useContext(CartContext);
     const addClick = () =>{
@@ -24,4 +24,4 @@ const ShopCard = ({product})=>{
 };
 
 
-export default ShopCard;
+export default ProductCard;

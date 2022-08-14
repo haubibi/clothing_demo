@@ -15,7 +15,11 @@ import {
   getFirestore,
   doc, //instance fc
   getDoc,
-  setDoc
+  setDoc,
+  collection,
+  writeBatch,
+  query,
+  getDocs
 } from 'firebase/firestore';
 
 
@@ -36,6 +40,57 @@ const firebaseConfig = {
   export const auth = getAuth();
   //get the firebase storage
   export const db = getFirestore();
+
+
+  export const addCollectionToFireBase = async(collectionKey, objects) => {
+    //创建一个collection 的引用地址
+    const newCollection = collection(db, collectionKey);
+    //批量写入方法
+    const batch = writeBatch(db);
+    console.log(typeof objects)
+    //将每个object 都写入一个创建的docRef中
+    Array.prototype.forEach.call(objects, (object)=>{
+      //创建一个docRef
+      const docRef = doc(newCollection, object.title);
+      //将object写入该地址
+      batch.set(docRef, object);
+    });
+    //提交
+    await batch.commit();
+    console.log('down');
+  }
+
+
+  export const getCategoriesAndCocuments = async (collectionKey) => {
+    
+    //获得collection的引用
+    const collectionRef = collection(db, collectionKey);
+
+
+    //获得该collection的query实例
+    const q = query(collectionRef);
+
+
+    //获得所有doc
+    const querySnapshot = await getDocs(q);
+    //获得所有docs 数组
+    const querySnapshotDocs = querySnapshot.docs
+
+    // console.log(querySnapshotDocs[0].data())
+    //获得一个新的对象
+    const categories = querySnapshotDocs.reduce((pre,current)=>{
+      //获得title和items
+      const {items, title} = current.data();
+      // console.log(items, title)
+      // console.log(pre, title)
+      pre[title.toLowerCase()] = items;
+      return pre;
+    }, {}); 
+
+    return categories;
+  }
+
+
 
 
   //instance of google provider
