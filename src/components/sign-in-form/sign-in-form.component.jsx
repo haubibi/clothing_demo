@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { signInWithGooglePopup,createUserDocumentFromAuth,signInWithWithEmailAndPasswordMethod } from '../../utils/firebase/firebas.utils';
+import { useState} from "react";
+// import { UserContext } from "../../contexts/user.comtext";
+import { signInWithGooglePopup,signInWithWithEmailAndPasswordMethod } from '../../utils/firebase/firebas.utils';
 // import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebas.utils";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
@@ -17,22 +18,27 @@ const defaultFormField = {
 const SignInForm = () => {
     const [formField, setFormField]= useState(defaultFormField);
     const {email,password } = formField;
+    // const {setCurrentUser} = useContext(UserContext);
 
     const resetForm = ()=>{
         setFormField(defaultFormField);
     }
 
     const signInWithGoogle = async () => {
-        const {user} = await signInWithGooglePopup();
-        await createUserDocumentFromAuth(user);
+        signInWithGooglePopup();
+        // const {user} = await signInWithGooglePopup();
+        // await createUserDocumentFromAuth(user);
+        // setCurrentUser(user);
+        // console.log(currentUser)
       };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
-            const {user} = await signInWithWithEmailAndPasswordMethod(email, password);
-            console.log(user)
+            // const {user} = await signInWithWithEmailAndPasswordMethod(email, password);
+            // setCurrentUser(user);
+            signInWithWithEmailAndPasswordMethod(email, password);
             resetForm();
         } catch(error){
             switch(error.code) {
@@ -56,7 +62,6 @@ const SignInForm = () => {
         setFormField({...formField, [name]: value});
     }
 
-    console.log(email,password)
 
     return(
         <div className="sign-up-container">
@@ -85,7 +90,7 @@ const SignInForm = () => {
                     }}
                 />
                 <div className="buttons-container">
-                    <Button type = "submit" buttonType= "">SIGN IN</Button>
+                    <Button type = "submit" >SIGN IN</Button>
                     <Button type = "button" onClick = { signInWithGoogle }  buttonType= "google">GOOGLE SIGN IN</Button>
                     {/* type = "button" prevent the submit */}
                 </div>

@@ -5,7 +5,10 @@ import {
     signInWithPopup,
     GoogleAuthProvider,
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword 
+    signInWithEmailAndPassword ,
+    signOut,
+    onAuthStateChanged
+     
 } from 'firebase/auth';
 
 import {
@@ -96,6 +99,12 @@ const firebaseConfig = {
       return await signInWithEmailAndPassword(auth, email,password);
   }
 
+  export const signOutUser = async () => await signOut(auth);
+
+
+  export const onUserAuthStateChanged = (callback) =>{
+    onAuthStateChanged(auth,callback);
+  }
 //   rules_version = '2';
 // service cloud.firestore {
 //   match /databases/{database}/documents {
