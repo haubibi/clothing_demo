@@ -3,20 +3,23 @@ import { CartContext } from '../../contexts/cart.context';
 import CheckoutItem from '../checkout-item/checkout-item.component';
  
 
-import './checkout.styles.scss';
+// import './checkout.styles.scss';
+
+import {CheckoutContainer, TextCointer, TextSpan, CheckItemContainer, TotalPrice} from './checkout.styles'
+
 const Checkout = () => {
     const { cartItems, totalPrice } = useContext(CartContext);
     
     return (
-        <div className="checkout-container">
-            <div className="texts-container">
-                <span>Product</span>
-                <span>Description</span>
-                <span>Quantity</span>
-                <span>Price</span>
-                <span>Remove</span>
-            </div>
-            <div className='checkout-items-container'>
+        <CheckoutContainer>
+            <TextCointer>
+                <TextSpan>Product</TextSpan>
+                <TextSpan>Description</TextSpan>
+                <TextSpan>Quantity</TextSpan>
+                <TextSpan>Price</TextSpan>
+                <TextSpan>Remove</TextSpan>
+            </TextCointer>
+            <CheckItemContainer>
                 {
                     cartItems.map((cartItem)=>{
                         return(
@@ -24,11 +27,32 @@ const Checkout = () => {
                         )
                     })
                 }
-            </div>
-            <div className='total'>
+            </CheckItemContainer>
+            <TotalPrice>
                 <h2>{`Total: ${totalPrice}`}</h2>
-            </div>
-        </div>
+            </TotalPrice>
+        </CheckoutContainer>
+        // <div className="checkout-container">
+        //     <div className="texts-container">
+        //         <span>Product</span>
+        //         <span>Description</span>
+        //         <span>Quantity</span>
+        //         <span>Price</span>
+        //         <span>Remove</span>
+        //     </div>
+        //     <div className='checkout-items-container'>
+        //         {
+        //             cartItems.map((cartItem)=>{
+        //                 return(
+        //                     <CheckoutItem key = {cartItem.id} cartItem={cartItem}/>
+        //                 )
+        //             })
+        //         }
+        //     </div>
+        //     <div className='total'>
+        //         <h2>{`Total: ${totalPrice}`}</h2>
+        //     </div>
+        // </div>
     )
 }
 

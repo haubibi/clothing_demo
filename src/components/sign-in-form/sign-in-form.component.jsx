@@ -3,7 +3,7 @@ import { useState} from "react";
 import { signInWithGooglePopup,signInWithWithEmailAndPasswordMethod } from '../../utils/firebase/firebas.utils';
 // import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebas.utils";
 import FormInput from "../form-input/form-input.component";
-import Button from "../button/button.component";
+import Button, { BUTTON_TYPES }from "../button/button.component";
 
 
 import './sign-in-form.styles.scss';
@@ -93,7 +93,7 @@ const SignInForm = () => {
                 />
                 <div className="buttons-container">
                     <Button type = "submit" >SIGN IN</Button>
-                    <Button type = "button" onClick = { signInWithGoogle }  buttonType= "google">GOOGLE SIGN IN</Button>
+                    <Button type = "button" onClick = { signInWithGoogle }  buttonType= { BUTTON_TYPES.google }>GOOGLE SIGN IN</Button>
                     {/* type = "button" prevent the submit */}
                 </div>
             </form>  

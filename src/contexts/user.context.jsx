@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 //as the actual value you want to access
 export const UserContext = createContext({
     currentUser: null,
-    setCurrentUser: ()=>null
+    setCurrentUser: ()=>{}
 });
 
 
@@ -25,6 +25,7 @@ export const UserContextProvider = ({ children }) =>{
             setCurrentUser(user);
             if(user){
                 createUserDocumentFromAuth(user);
+                console.log(111)
                 navigate(-1);
             }
         });

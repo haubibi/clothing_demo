@@ -6,7 +6,13 @@ import { signOutUser } from '../../../utils/firebase/firebas.utils';
 import CartIcon from '../../cart-icon/cart-icon.component';
 import CartDropDown from '../../cart-drop-down/cart-drop-down.component';
 import { CartContext } from '../../../contexts/cart.context';
-import './navigation.styles.scss';
+
+
+import { NavigationContainer, LogoContainer, NavLinkContainer, NavLink } from './navigation.styles.jsx'
+
+// import './navigation.styles.scss';
+
+
 
 const Navigation = () =>{
     const {currentUser} = useContext(UserContext);
@@ -18,30 +24,56 @@ const Navigation = () =>{
     // console.log(currentUser)
     return(
       <Fragment>
-        <div className='navigation'>
-            <Link className='logo-container' to = "/">
+        <NavigationContainer >
+            <LogoContainer to = "/">
                 <CLogo />
-            </Link>
-            <div className='nav-links-container'>
-                <Link className = 'nav-link' to = '/shop'>
+            </LogoContainer>
+            <NavLinkContainer>
+                <NavLink to = '/shop'>
                     SHOP
-                </Link>
+                </NavLink>
                 {
                     currentUser? (
-                        <span className='nav-link' onClick={signOutHandle}>SIGN OUT</span>
+                        <NavLink as="span" onClick={signOutHandle}>SIGN OUT</NavLink>
                     ): (
-                    <Link className = 'nav-link' to = '/auth'>
+                    <NavLink to = '/auth'>
                         SIGN IN
-                    </Link>
+                    </NavLink>
                     )
                 }
                 <CartIcon quantity = {cartCount}/>
-            </div>
+            </NavLinkContainer>
             { isCartClicked && <CartDropDown cartItems = {cartItems} />}
-        </div>
+        </NavigationContainer>
         <Outlet />
       </Fragment>
     )
+    // return(
+    //   <Fragment>
+    //     <NavigationContainer >
+    //         <Link className='logo-container' to = "/">
+    //             <CLogo />
+    //         </Link>
+    //         <div className='nav-links-container'>
+    //             <Link className = 'nav-link' to = '/shop'>
+    //                 SHOP
+    //             </Link>
+    //             {
+    //                 currentUser? (
+    //                     <span className='nav-link' onClick={signOutHandle}>SIGN OUT</span>
+    //                 ): (
+    //                 <Link className = 'nav-link' to = '/auth'>
+    //                     SIGN IN
+    //                 </Link>
+    //                 )
+    //             }
+    //             <CartIcon quantity = {cartCount}/>
+    //         </div>
+    //         { isCartClicked && <CartDropDown cartItems = {cartItems} />}
+    //     </NavigationContainer>
+    //     <Outlet />
+    //   </Fragment>
+    // )
 }
 
 export default Navigation;
