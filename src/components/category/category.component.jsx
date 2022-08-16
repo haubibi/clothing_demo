@@ -15,7 +15,7 @@ const Category = () =>{
     //可以更新当改变的时候
     useEffect(()=>{
         setProducts(categoriesMap[category]);
-        console.log(categoriesMap, category,'changed')
+        // console.log(categoriesMap, category,'changed')
     },[category, categoriesMap])
 
     

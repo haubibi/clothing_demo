@@ -1,24 +1,37 @@
 import './checkout-item.styles.scss';
 
 import { useContext } from 'react';
-import { CartContext } from '../../contexts/cart.context';
+import { CartContext, CART_ACTION_TYPES } from '../../contexts/cart.context';
 
 import { CheckoutItemCon, ButtonSpan, ImgContainer} from './checkout-item.styles'
 
 
 const CheckoutItem = ({cartItem}) =>{
     const {imageUrl,name,quantity,price} = cartItem;
-    const {addItemQuantity, subItemQuantity, removeItem} = useContext(CartContext);
+    // const {addItemQuantity, subItemQuantity, removeItem} = useContext(CartContext);
+    const {dispatch} = useContext(CartContext);
 
 
     const subItemClick = () =>{
-        subItemQuantity(cartItem);
+        dispatch({
+            type : CART_ACTION_TYPES.SUB_CART_QUANTITY,
+            payload: cartItem
+        });
+        // subItemQuantity(cartItem);
     }
     const addItemClick = () =>{
-        addItemQuantity(cartItem);
+        dispatch({
+            type : CART_ACTION_TYPES.ADD_CART_ITEM,
+            payload: cartItem
+        });
+        // addItemQuantity(cartItem);
     }
     const removeItemClick = () =>{
-        removeItem(cartItem);
+        dispatch({
+            type : CART_ACTION_TYPES.REMOVE_CART_ITEM,
+            payload: cartItem
+        });
+        // removeItem(cartItem);
     }
 
 

@@ -4,15 +4,19 @@ import Button, {BUTTON_TYPES} from "../button/button.component";
 import CartItem from "../cart-item/cart-item.component";
 import { Link } from 'react-router-dom';
 import { useContext } from "react";
-import { CartContext } from '../../contexts/cart.context'
+import { CartContext, CART_ACTION_TYPES} from '../../contexts/cart.context'
 import { CartDropdownContainer, Cartitems, EmptyMessage} from './cart-drop-down.styles'
 
 
 const CartDropDown = ({cartItems}) =>{
     // console.log(cartItems)
-    const {isCartClicked, setIsCartClicked} = useContext(CartContext);
+    // const {isCartClicked, setIsCartClicked} = useContext(CartContext);
+    const { dispatch } = useContext(CartContext);
     const checkoutClick = () =>{
-        setIsCartClicked(!isCartClicked)
+        // setIsCartClicked(!isCartClicked)
+        dispatch({
+            type : CART_ACTION_TYPES.SET_CART_CLICKED
+        })
     }
     return(
         <CartDropdownContainer>

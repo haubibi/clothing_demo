@@ -1,4 +1,5 @@
-import { Outlet,Link } from 'react-router-dom';
+// import { Outlet,Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { Fragment, useContext} from 'react';
 import { UserContext } from '../../../contexts/user.context';
 import { ReactComponent as CLogo } from '../../../assets/crown.svg';
@@ -17,7 +18,7 @@ import { NavigationContainer, LogoContainer, NavLinkContainer, NavLink } from '.
 const Navigation = () =>{
     const {currentUser} = useContext(UserContext);
     const {isCartClicked, cartItems, cartCount}  = useContext(CartContext);
-
+    // console.log(isCartClicked)
     const signOutHandle = async() =>{
         signOutUser(); // would be null if succeed
     }

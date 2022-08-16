@@ -1,15 +1,19 @@
 
 import Button, {BUTTON_TYPES}from "../button/button.component";
 import './product-card.styles.scss';
-import { CartContext } from "../../contexts/cart.context";
+import { CartContext, CART_ACTION_TYPES } from "../../contexts/cart.context";
 import { useContext } from "react";
 
 
 const ProductCard = ({product})=>{
     const {imageUrl, name,price } = product;
-    const { addCartItem} = useContext(CartContext);
+    // const { addCartItem} = useContext(CartContext);
+    const { dispatch} = useContext(CartContext);
     const addClick = () =>{
-        addCartItem(product);
+        dispatch({
+            type : CART_ACTION_TYPES.ADD_CART_ITEM,
+            payload: product
+        });
     }
     return(
         <div className="product-card-container">

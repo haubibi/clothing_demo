@@ -15,7 +15,7 @@ const CategoriesProvider = ({children}) =>{
     useEffect(()=>{ 
         const fetchProducts = async () =>{
             const categoriesMap =  await getCategoriesAndCocuments('categories');
-            console.log(categoriesMap)
+            // console.log(categoriesMap)
             setCategoriesMap(categoriesMap);
         }
         fetchProducts();

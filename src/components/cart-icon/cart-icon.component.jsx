@@ -1,14 +1,18 @@
 // import { ReactComponent as ShoppingIcon } from "../../assets/shopping-bag.svg";
 // import './cart-icon.styles.scss'
 import { useContext } from "react";
-import { CartContext } from "../../contexts/cart.context";
+import { CartContext, CART_ACTION_TYPES } from "../../contexts/cart.context";
 
 import { CartIconCon, ShoppingIcon, ItemCount} from './cart-icon.styles'
 
 const CartIcon = ({quantity}) =>{
-    const { isCartClicked, setIsCartClicked} = useContext(CartContext);
+    // const { isCartClicked, setIsCartClicked} = useContext(CartContext);
+    const { dispatch } = useContext(CartContext);
     const cartIconHandle = () =>{
-        setIsCartClicked(!isCartClicked)
+        dispatch({
+            type : CART_ACTION_TYPES.SET_CART_CLICKED
+        })
+        // setIsCartClicked(!isCartClicked)
     }
 
     return(
