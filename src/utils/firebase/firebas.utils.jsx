@@ -78,15 +78,18 @@ const firebaseConfig = {
 
     // console.log(querySnapshotDocs[0].data())
     //获得一个新的对象
-    const categories = querySnapshotDocs.reduce((pre,current)=>{
-      //获得title和items
-      const {items, title} = current.data();
-      // console.log(items, title)
-      // console.log(pre, title)
-      pre[title.toLowerCase()] = items;
-      return pre;
-    }, {}); 
-
+    const categories = querySnapshotDocs.map((doc)=>{
+        return doc.data();
+    });
+    // = querySnapshotDocs.reduce((pre,current)=>{
+    //   //获得title和items
+    //   const {items, title} = current.data();
+    //   // console.log(items, title)
+    //   // console.log(pre, title)
+    //   pre[title.toLowerCase()] = items;
+    //   return pre;
+    // }, {}); 
+    // console.log(categories)
     return categories;
   }
 

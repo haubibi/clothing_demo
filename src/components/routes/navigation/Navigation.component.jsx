@@ -1,6 +1,8 @@
 // import { Outlet,Link } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { Fragment, useContext} from 'react';
+import { useSelector } from 'react-redux'
+
 import { UserContext } from '../../../contexts/user.context';
 import { ReactComponent as CLogo } from '../../../assets/crown.svg';
 import { signOutUser } from '../../../utils/firebase/firebas.utils';
@@ -8,6 +10,8 @@ import CartIcon from '../../cart-icon/cart-icon.component';
 import CartDropDown from '../../cart-drop-down/cart-drop-down.component';
 import { CartContext } from '../../../contexts/cart.context';
 
+import { selectCurrentuser } from '../../../store/user/user.selector';
+import { isCartClickedSelector } from '../../../store/cart/cart.selector';
 
 import { NavigationContainer, LogoContainer, NavLinkContainer, NavLink } from './navigation.styles.jsx'
 
@@ -16,8 +20,18 @@ import { NavigationContainer, LogoContainer, NavLinkContainer, NavLink } from '.
 
 
 const Navigation = () =>{
-    const {currentUser} = useContext(UserContext);
-    const {isCartClicked, cartItems, cartCount}  = useContext(CartContext);
+    const currentUser = useSelector(selectCurrentuser);
+    // const cartCount = useSelector(cartCountSelector);
+    // const isCartClicked = useSelector(isCartClickedSelector);
+    const isCartClicked = useSelector(
+        (state)=>{
+            // console.log(state.cart)
+            return state.cart.isCartClicked}
+        );
+    // console.log(isCartClicked)
+    // console.log(currentUser)
+    // const {currentUser} = useContext(UserContext);
+    // const {isCartClicked, cartItems, cartCount}  = useContext(CartContext);
     // console.log(isCartClicked)
     const signOutHandle = async() =>{
         signOutUser(); // would be null if succeed
@@ -42,9 +56,9 @@ const Navigation = () =>{
                     </NavLink>
                     )
                 }
-                <CartIcon quantity = {cartCount}/>
+                <CartIcon />
             </NavLinkContainer>
-            { isCartClicked && <CartDropDown cartItems = {cartItems} />}
+            { isCartClicked && <CartDropDown/>}
         </NavigationContainer>
         <Outlet />
       </Fragment>

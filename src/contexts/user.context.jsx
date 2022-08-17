@@ -66,13 +66,12 @@ export const UserContextProvider = ({ children }) =>{
             setCurrentUser(user);
             if(user){
                 createUserDocumentFromAuth(user);
-                console.log(111)
                 navigate(-1);
             }
         });
 
         return unsubscribe;
-    },[]);
+    },[navigate]);
 
     return (
         <UserContext.Provider value = {value}>{children}</UserContext.Provider>

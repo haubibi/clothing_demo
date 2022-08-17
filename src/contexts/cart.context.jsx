@@ -71,7 +71,6 @@ const cartReducer = (state, action) =>{
     const { type, payload } = action;
     const { cartItems, isCartClicked } = state;
 
-    console.log(type)
 
     switch(type) {
         case CART_ACTION_TYPES.SET_CART_CLICKED:

@@ -1,23 +1,29 @@
+import { useSelector } from 'react-redux'; 
+
 import { useParams } from 'react-router-dom';
 import { useContext, useEffect,useState } from 'react';
 import { CateGoriesContext } from '../../contexts/categories.context';
 import ProductCard from '../product-card/product-card.component'
+import { categoriesMapSelector } from '../../store/categories/categories.selector';
+
 
 import {CategoryContainer}from './catagory.styles';
 
 // import './category.style.scss';
 const Category = () =>{
     const { category } = useParams();
-    const { categoriesMap } = useContext(CateGoriesContext);
+    const categoriesMap = useSelector(categoriesMapSelector);
+    // const { categoriesMap } = useContext(CateGoriesContext);
     const [ products, setProducts] = useState(categoriesMap[category]);
 
-
+    
     //可以更新当改变的时候
     useEffect(()=>{
         setProducts(categoriesMap[category]);
+        // console.log(categoriesMap, category)
         // console.log(categoriesMap, category,'changed')
     },[category, categoriesMap])
-
+    
     
     return(
         <CategoryContainer>

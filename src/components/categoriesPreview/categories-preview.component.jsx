@@ -1,15 +1,20 @@
 import { useContext } from "react";
+import { useSelector } from 'react-redux';
 // import { ProductContext } from "../../contexts/categories.context";
 import { CateGoriesContext } from "../../contexts/categories.context";
 import CategoryPreview from "../category-preview/category-preview.compoennt";
 
+import { categoriesMapSelector, categoriesSelector } from '../../store/categories/categories.selector'
 
 import { CatagoriesPreviewContainer } from './categories-preview.styles';
+
 
 // import './categories-preview.styles.scss';
 
 const CategoriesPreview = () =>{
-    const {categoriesMap} = useContext(CateGoriesContext);
+    // const {categoriesMap} = useContext(CateGoriesContext);
+
+    const categoriesMap = useSelector(categoriesMapSelector);
 
     return(
         
