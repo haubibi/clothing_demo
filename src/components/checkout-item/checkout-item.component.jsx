@@ -4,9 +4,8 @@ import { useContext } from 'react';
 import { CartContext, CART_ACTION_TYPES } from '../../contexts/cart.context';
 
 
-import {  useDispatch } from 'react-redux';
-
-import { removeCartItemAction } from '../../store/cart/cart.action';
+import { addCartItemAction, subCartQuantityAction, removeCartItemAction } from '../../store/cart/cart.action';
+import { useDispatch } from 'react-redux'
 
 import { CheckoutItemCon, ButtonSpan, ImgContainer} from './checkout-item.styles'
 
@@ -26,21 +25,24 @@ const CheckoutItem = ({cartItem}) =>{
         //     payload: cartItem
         // });
         // subItemQuantity(cartItem);
-        dispatch(removeCartItemAction(cartItem));
+        dispatch(subCartQuantityAction(cartItem));
     }
     const addItemClick = () =>{
-        dispatch({
-            type : CART_ACTION_TYPES.ADD_CART_ITEM,
-            payload: cartItem
-        });
+        // dispatch({
+        //     type : CART_ACTION_TYPES.ADD_CART_ITEM,
+        //     payload: cartItem
+        // });
+        dispatch(addCartItemAction(cartItem));
         // addItemQuantity(cartItem);
     }
     const removeItemClick = () =>{
-        dispatch({
-            type : CART_ACTION_TYPES.REMOVE_CART_ITEM,
-            payload: cartItem
-        });
+        // dispatch({
+        //     type : CART_ACTION_TYPES.REMOVE_CART_ITEM,
+        //     payload: cartItem
+        // });
         // removeItem(cartItem);
+        dispatch(removeCartItemAction(cartItem));
+
     }
 
 
