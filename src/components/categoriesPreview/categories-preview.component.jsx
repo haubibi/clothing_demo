@@ -15,7 +15,6 @@ const CategoriesPreview = () =>{
     // const {categoriesMap} = useContext(CateGoriesContext);
 
     const categoriesMap = useSelector(categoriesMapSelector);
-
     return(
         
         <CatagoriesPreviewContainer>

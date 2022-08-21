@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { useContext } from 'react';
 import { CartContext } from '../../contexts/cart.context';
-import CheckoutItem from '../checkout-item/checkout-item.component';
+import CheckoutItem from '../../components/checkout-item/checkout-item.component'
 
 import { cartItemsSelector, cartTotalPriceSelector} from '../../store/cart/cart.selector'
 

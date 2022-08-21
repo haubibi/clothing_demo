@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 
 import { CategoryPreviewContainer,Title,Preview } from './category-preview.styles';
 const CategoryPreview = ({title, category}) => {
+    // console.log(title)
     return (
         <CategoryPreviewContainer>
             <Title>

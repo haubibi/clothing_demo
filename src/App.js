@@ -1,16 +1,16 @@
 import { Route, Routes} from 'react-router-dom';
-import Home from "./components/routes/home/home.component";
-import Navigation from './components/routes/navigation/Navigation.component'
-import Authtication from './components/routes/authtication/Authtication.component';
-import Checkout from './components/checkout/checkout.component';
-import Shop from './components/shop/shop.component';
+import Home from "./routes/home/home.component";
+import Navigation from './routes/navigation/Navigation.component'
+import Authtication from './routes/authtication/Authtication.component';
+import Checkout from './routes/checkout/checkout.component';
+import Shop from './routes/shop/shop.component';
 
 import { useEffect } from 'react';
-import { signOutUser, onUserAuthStateChanged, createUserDocumentFromAuth } from './utils/firebase/firebas.utils';
-import { setCurrentUserAction } from './store/user/user.action';
+import { signOutUser, onUserAuthStateChanged, createUserDocumentFromAuth, getCurrentUser } from './utils/firebase/firebas.utils';
+import { setCurrentUserAction, checkAuthentificationAsync } from './store/user/user.action';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
+import { persistor } from './store/store';
 
 // import { getCategoriesAndCocuments } from './utils/firebase/firebas.utils';
 // import { setCategoriesAction } from './store/categories/categories.action'
@@ -23,26 +23,35 @@ import { useNavigate } from 'react-router-dom';
 
 const App = () =>{ 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-
+    // const navigate = useNavigate();
+    useEffect(()=>{
+      dispatch(checkAuthentificationAsync())
+    });
 
     //user
-    useEffect(()=>{
-      // signOutUser();
-      const unsubscribe = onUserAuthStateChanged((user)=>{
-          //set user
-          if(user){
-            createUserDocumentFromAuth(user);
-            // navigate(-1);
-          }
-          dispatch(setCurrentUserAction(user));
-      });
+  //   useEffect(()=>{
+  //     // signOutUser();
+  //     const unsubscribe = onUserAuthStateChanged((user)=>{
+  //         //set user
+  //         if(user){
+  //           createUserDocumentFromAuth(user);
+  //           // navigate(-1);
+  //         }
+  //         dispatch(setCurrentUserAction(user)); // solve the serializable problem
+  //     });
 
-      return unsubscribe;
-  },[dispatch]);
+  //     return unsubscribe;
+  // },[dispatch]);
 
 
+    // useEffect(()=>{
+    //   // dispatch()
+    //   // getCurrentUser().then(user =>{
+    //   //   console.log(user)
+    //   // });
+    // });
   
+
   //navigate will cause a problem
   // const dispatch = useDispatch();
 

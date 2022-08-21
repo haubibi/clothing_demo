@@ -12,6 +12,7 @@ import { CheckoutItemCon, ButtonSpan, ImgContainer} from './checkout-item.styles
 
 
 
+
 const CheckoutItem = ({cartItem}) =>{
     const {imageUrl,name,quantity,price} = cartItem;
     const dispatch = useDispatch();

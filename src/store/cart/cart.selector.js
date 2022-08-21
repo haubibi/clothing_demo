@@ -15,7 +15,6 @@ const cartReducer = (state) => {
 export const isCartClickedSelector = createSelector(
     [cartReducer],
     (cart) => {
-        console.log(cart.isCartClicked);
         return cart.isCartClicked
     }
 )

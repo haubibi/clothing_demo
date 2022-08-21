@@ -1,8 +1,19 @@
 import styled from 'styled-components';
 
-export const CategoryContainer = styled.div`
+export const ProductCardsContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 20px;
     row-gap: 20px;
+`
+export const CategoryContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+export const Title = styled.h2`
+    font-size: 36px;
+    margin-bottom: 25px;
+    cursor: default;
+    text-align: center;
 `

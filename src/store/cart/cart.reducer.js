@@ -1,12 +1,5 @@
 import { CART_ACTION_TYPES } from './cart.types';
-
-const INITIAL_STATE = {
-    isCartClicked: false,
-    cartItems: [],
-    cartCount: 0,
-    totalPrice: 0
-}
-
+import CART_INITIAL_STATE from './cart.default';
 
 
 const addCartItem = (cartItems, product)=>{
@@ -66,7 +59,7 @@ const getTotalPrice = (cartItems) =>{
 
 
 
-export const cartReducer = (state = INITIAL_STATE, action) =>{
+export const cartReducer = (state = CART_INITIAL_STATE, action) =>{
     const { type, payload } = action;
     const { cartItems, isCartClicked } = state;
     let newCartItems, newIsCartClicked;

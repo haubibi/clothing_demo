@@ -6,6 +6,14 @@ const catagoriesReducer = (state) => {
     return state.categories
 };
 
+export const categoriesDataFetchedSelector = createSelector(
+    [catagoriesReducer],
+    (categoriesSlice) => {
+        console.log(categoriesSlice)
+        return categoriesSlice.dataFetched
+    }
+)
+
 export const categoriesSelector = createSelector(
     [catagoriesReducer],
     (categoriesSlice) => {
@@ -25,6 +33,13 @@ export const categoriesMapSelector = createSelector(
             return pre;
         },{})
     }
+);
+
+
+
+export const isCategoryLoadingSelector = createSelector(
+    [catagoriesReducer],
+    (categoriesSlice) => categoriesSlice.isLoading
 );
 
 

@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useCallback, useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { selectCurrentuser } from "../../store/user/user.selector";
 // import { UserContext } from "../../contexts/user.context";
 
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebas.utils";
+import { userSignupAction } from "../../store/user/user.action";
+import { useDispatch, useSelector } from "react-redux";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
-
 
 import './sign-up-form.styles.scss';
 
@@ -18,14 +21,28 @@ const defaultFormField = {
 const SignUpForm = () => {
     const [formField, setFormField]= useState(defaultFormField);
     const {displayName, email,password,passwordConfirm } = formField;
+    const dispatch = useDispatch();
+    const signInCliked = useRef(false);
+    const navigate = useNavigate();
+    const currentUser = useSelector(selectCurrentuser);
+
+    // const currentUserErrorSecector = 
     // const  {setCurrentUser} = useContext(UserContext);
 
     // console.log(useContext(UserContext))
 
+    useEffect(()=>{
+        if(currentUser && signInCliked.current) {
+            navigate(-1);
+            signInCliked.current = false;
+        }
+    }, [currentUser]);
     const resetForm = ()=>{
         setFormField(defaultFormField);
     }
 
+
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -34,16 +51,23 @@ const SignUpForm = () => {
         }
 
         try {
-            const {user} = await createAuthUserWithEmailAndPassword(email, password);
-            // setCurrentUser(user);
-            createUserDocumentFromAuth(user,{displayName});
-            // console.log(currentUser)
+            await dispatch(userSignupAction(email, password, displayName));
+            signInCliked.current = true;
             resetForm();
-        } catch(error){
-            if(error.code === 'auth/email-already-in-use'){
-                alert('cannot create user, email already use')
-            }
-        }
+        }catch(error) {
+            console.log('user sign up failed', error)
+        }   
+        // try {
+        //     const {user} = await createAuthUserWithEmailAndPassword(email, password);
+        //     // setCurrentUser(user);
+        //     createUserDocumentFromAuth(user,{displayName});
+        //     // console.log(currentUser)
+        //     resetForm();
+        // } catch(error){
+        //     if(error.code === 'auth/email-already-in-use'){
+        //         alert('cannot create user, email already use')
+        //     }
+        // }
 
     }
   

@@ -112,10 +112,13 @@ const firebaseConfig = {
 
 
   export const createUserDocumentFromAuth = async (userAuth, additionalInfor) => {
-    //set the user doc ref
+    // console.log(userAuth)
+    // set the user doc ref
     const userDocRef = doc(db, 'users', userAuth.uid);
+    // console.log(userDocRef)
     //find the snapshoot
     const userSnapshoot = await getDoc(userDocRef);
+    // console.log(userSnapshoot)
     //create new data in database if not exists
     if(!userSnapshoot.exists()){
       //get the displayName, email, date
@@ -133,17 +136,7 @@ const firebaseConfig = {
       }
     }
 
-    return userAuth;
-
-    // const userDocRef = doc(db, 'users', userAuth.user.uid);
-    // const userSnapshoot = await getDoc(userDocRef);
-    // //userSnapshoot.exists() check if exist
-    // console.log(userSnapshoot.exists())
-
-    // if(!userSnapshoot.exists()){
-    //   const { displayName, email} = userAuth;
-    //   const createdAt = new Date();
-    // }
+    return userSnapshoot;
   }
 
 
@@ -154,15 +147,32 @@ const firebaseConfig = {
 
   export const signInWithWithEmailAndPasswordMethod = async (email,password) =>{
       if(!email || !password) return;
-      return await signInWithEmailAndPassword(auth, email,password);
+      console.log(1111)
+      return await signInWithEmailAndPassword(auth, email,password)
   }
 
   export const signOutUser = async () => await signOut(auth);
 
 
   export const onUserAuthStateChanged = (callback) =>{
-    onAuthStateChanged(auth,callback);
+      onAuthStateChanged(auth,callback);
   }
+
+  //get the user and add this to saga
+  export const getCurrentUser = () => {
+      return new Promise((resolve, reject)=>{
+        const unsubscribe = onAuthStateChanged(
+          auth,
+          (user)=> {
+              resolve(user);
+              unsubscribe();
+          },
+          reject
+        )
+      });
+  }
+
+
 //   rules_version = '2';
 // service cloud.firestore {
 //   match /databases/{database}/documents {
