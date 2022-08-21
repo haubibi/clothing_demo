@@ -5,7 +5,6 @@ import { getCategoriesAndCocuments } from '../../utils/firebase/firebas.utils'
 
 
 export function* fetchCategoriesAsync() {
-    console.log(111)
     try{
         const categories = yield call(getCategoriesAndCocuments, 'categories');
         yield put(fetchCategoriesSucceedAction(categories));

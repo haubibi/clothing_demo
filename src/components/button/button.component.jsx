@@ -1,6 +1,6 @@
 import './button.styles.jsx';
 
-import { BaseStyleButton, GoogleSignButton, InvertedButton } from './button.styles.jsx';
+import { BaseStyleButton, GoogleSignButton, InvertedButton, ButtonSpinner } from './button.styles.jsx';
 
 export const BUTTON_TYPES = {
     base: 'base',
@@ -36,13 +36,13 @@ const getButton = (buttonType = BUTTON_TYPES.base) =>{
 // };
 
 
-const Button = ({ children, buttonType, ...otherProps }) => {
+const Button = ({ children, buttonType, isLoading, ...otherProps }) => {
     const ButtonTag = getButton(buttonType);
     return(
         <ButtonTag 
             {...otherProps}
         >
-            {children}
+            { isLoading? <ButtonSpinner />:  children}
         </ButtonTag>
         // <button 
         //     className={`button-container ${BUTTON_TYPE_CLASSES[buttonType]}`}

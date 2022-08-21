@@ -11,6 +11,8 @@ import reportWebVitals from './reportWebVitals';
 // import { CategoriesProvider } from './contexts/categories.context';
 // import { CartProvider } from './contexts/cart.context';
 import { store, persistor } from './store/store';
+import { Elements } from '@stripe/react-stripe-js';
+import { stripePromise } from './utils/stripe/stripe.utils';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,7 +24,9 @@ root.render(
         {/* <UserContextProvider> */}
           {/* <CategoriesProvider> */}
             {/* <CartProvider> */}
-            <App />
+            <Elements stripe = {stripePromise}>
+              <App />
+            </Elements>
             {/* </CartProvider> */}
           {/* </CategoriesProvider> */}
         {/* </UserContextProvider> */}

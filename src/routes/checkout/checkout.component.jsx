@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 
 import { useContext } from 'react';
@@ -7,17 +7,19 @@ import CheckoutItem from '../../components/checkout-item/checkout-item.component
 
 import { cartItemsSelector, cartTotalPriceSelector} from '../../store/cart/cart.selector'
 
-
+import PaymentForm from '../../components/payment-form/payment-form.component'
 
 
 // import './checkout.styles.scss';
 
 import {CheckoutContainer, TextCointer, TextSpan, CheckItemContainer, TotalPrice} from './checkout.styles'
 
+
 const Checkout = () => {
     // const { cartItems, totalPrice } = useContext(CartContext);
     const cartItems = useSelector(cartItemsSelector);
     const totalPrice = useSelector(cartTotalPriceSelector);
+    
     return (
         <CheckoutContainer>
             <TextCointer>
@@ -39,6 +41,9 @@ const Checkout = () => {
             <TotalPrice>
                 <h2>{`Total: ${totalPrice}`}</h2>
             </TotalPrice>
+            {
+                totalPrice> 0 ?<PaymentForm />: null
+            }
         </CheckoutContainer>
         // <div className="checkout-container">
         //     <div className="texts-container">

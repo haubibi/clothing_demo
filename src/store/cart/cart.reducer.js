@@ -87,6 +87,10 @@ export const cartReducer = (state = CART_INITIAL_STATE, action) =>{
         case CART_ACTION_TYPES.SUB_CART_QUANTITY:
             newCartItems = subItemQuantity(cartItems, payload);
             break;
+        case CART_ACTION_TYPES.CLEAR_CART:
+            console.log(121212)
+            newCartItems = [];
+            break;
         default:
             return state;
     }

@@ -16,3 +16,4 @@ export const addCartItemAction = (cartItem) => createAction(CART_ACTION_TYPES.AD
 export const removeCartItemAction = (cartItem) => createAction(CART_ACTION_TYPES.REMOVE_CART_ITEM, cartItem);
 export const addCartQuantityAction = (cartItem) => createAction(CART_ACTION_TYPES.ADD_CART_QUANTITY, cartItem);
 export const subCartQuantityAction = (cartItem) => createAction(CART_ACTION_TYPES.SUB_CART_QUANTITY, cartItem);
+export const clearCartAction = () => createAction(CART_ACTION_TYPES.CLEAR_CART);

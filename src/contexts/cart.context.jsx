@@ -66,7 +66,6 @@ const subItemQuantity = (cartItems, product) => {
     // setCartItems(JSON.parse(JSON.stringify(cartItems)));
 }
 
-
 const cartReducer = (state, action) =>{
     const { type, payload } = action;
     const { cartItems, isCartClicked } = state;

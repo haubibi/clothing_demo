@@ -28,6 +28,7 @@ const App = () =>{
       dispatch(checkAuthentificationAsync())
     });
 
+    console.log(process.env)
     //user
   //   useEffect(()=>{
   //     // signOutUser();
