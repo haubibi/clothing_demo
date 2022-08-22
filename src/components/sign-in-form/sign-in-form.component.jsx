@@ -8,6 +8,7 @@ import { signInWithGooglePopup,signInWithWithEmailAndPasswordMethod } from '../.
 import FormInput from "../form-input/form-input.component";
 import Button, { BUTTON_TYPES }from "../button/button.component";
 import { userSignGooglePopupAction,userSignEmailAction } from "../../store/user/user.action";
+import { SignInContainer, Title, BottomContainer} from './sign-in-form.styles'
 
 import './sign-in-form.styles.scss';
 
@@ -102,9 +103,9 @@ const SignInForm = () => {
 
 
     return(
-        <div className="sign-up-container">
+        <SignInContainer >
             {/* {console.log(displayName,email,password,passwordConfirm)} */}
-            <h2>Already have an account?</h2>
+            <Title>Already have an account?</Title>
             <span>Sign in with your email and password</span>
             <form onSubmit={(event)=>{handleSubmit(event);}}>
                 <FormInput
@@ -127,13 +128,13 @@ const SignInForm = () => {
                         required: true
                     }}
                 />
-                <div className="buttons-container">
+                <BottomContainer>
                     <Button type = "submit" >SIGN IN</Button>
                     <Button type = "button" onClick = { signInWithGoogle }  buttonType= { BUTTON_TYPES.google }>GOOGLE SIGN IN</Button>
                     {/* type = "button" prevent the submit */}
-                </div>
+                </BottomContainer>
             </form>  
-        </div>
+        </SignInContainer>
     );
 
 }
